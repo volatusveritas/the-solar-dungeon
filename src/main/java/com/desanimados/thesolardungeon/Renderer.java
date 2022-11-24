@@ -21,8 +21,8 @@ public final class Renderer {
         instance.stage = stage;
 
         final Group group = new Group();
-        final Scene scene = new Scene(group, 640, 480);
-        final Canvas canvas = new Canvas(640, 480);
+        final Scene scene = new Scene(group, 640, 640);
+        final Canvas canvas = new Canvas(640, 640);
 
         instance.graphicsContext = canvas.getGraphicsContext2D();
         instance.graphicsContext.setFill(Color.BLACK);
