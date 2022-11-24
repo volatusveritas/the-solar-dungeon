@@ -1,0 +1,11 @@
+package com.desanimados.thesolardungeon.dungeongenerator.settings;
+
+public class CorridorSize implements ValidatedSetting {
+    public static final int MIN_SIZE = 8;
+
+    public int size = 8;
+
+    public boolean isValid() {
+        return size >= MIN_SIZE;
+    }
+}
