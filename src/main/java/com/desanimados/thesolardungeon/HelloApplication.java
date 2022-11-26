@@ -1,18 +1,11 @@
 package com.desanimados.thesolardungeon;
 
+import com.desanimados.thesolardungeon.dungeongenerator.Corridor;
 import com.desanimados.thesolardungeon.dungeongenerator.DungeonGenerator;
 import com.desanimados.thesolardungeon.dungeongenerator.Room;
-import com.desanimados.thesolardungeon.util.Rectangle;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.List;
 
 public class HelloApplication extends Application {
@@ -22,11 +15,20 @@ public class HelloApplication extends Application {
         Renderer.getInstance().start();
 
         DungeonGenerator dungeonGenerator = new DungeonGenerator();
-        boolean[][] roomGrid = dungeonGenerator.generateRoomGrid();
-        List<Room> roomList = dungeonGenerator.generateRooms(roomGrid);
+        boolean[][] dungeonGrid = dungeonGenerator.generateDungeonGrid();
+        Room[][] roomGrid = dungeonGenerator.generateRooms(dungeonGrid);
+        List<Corridor> corridorList = dungeonGenerator.generateCorridors(roomGrid);
 
-        for (Room room : roomList) {
-            room.draw();
+        for (int x = 0; x < dungeonGenerator.settings.gridSize.width; x++) {
+            for (int y = 0; y < dungeonGenerator.settings.gridSize.height; y++) {
+                if (roomGrid[x][y] == null) continue;
+
+                roomGrid[x][y].draw();
+            }
+        }
+
+        for (Corridor corridor : corridorList) {
+            corridor.draw(dungeonGenerator.settings.corridorSize.size);
         }
     }
 

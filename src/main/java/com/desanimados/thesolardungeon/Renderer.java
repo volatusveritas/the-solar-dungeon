@@ -16,6 +16,8 @@ public final class Renderer {
         return instance;
     }
 
+    public static GraphicsContext getGraphicsContext() { return instance.graphicsContext; }
+
     public static void init(Stage stage) {
         instance = new Renderer();
         instance.stage = stage;
@@ -35,6 +37,10 @@ public final class Renderer {
 
     public void drawRect(int x, int y, int width, int height) {
         graphicsContext.fillRect(x, y, width, height);
+    }
+
+    public void drawLine(int fromX, int fromY, int toX, int toY) {
+        graphicsContext.strokeLine(fromX, fromY, toX, toY);
     }
 
     public void start() {
