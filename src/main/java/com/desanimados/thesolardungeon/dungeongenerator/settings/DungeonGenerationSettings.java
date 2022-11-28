@@ -8,6 +8,7 @@ public class DungeonGenerationSettings {
     public RoomSize roomSize;
     public CorridorSize corridorSize;
     public RoomChance roomChance;
+    public RoomCornerRadius roomCornerRadius;
 
     public DungeonGenerationSettings() {
         gridSize = new GridSize();
@@ -17,6 +18,7 @@ public class DungeonGenerationSettings {
         roomSize = new RoomSize();
         corridorSize = new CorridorSize();
         roomChance = new RoomChance();
+        roomCornerRadius = new RoomCornerRadius();
     }
 
     public boolean isValid() {
@@ -26,6 +28,7 @@ public class DungeonGenerationSettings {
             && gridLimits.isValid()
             && roomSize.isValid()
             && roomChance.isValid()
+            && roomCornerRadius.isValid()
             && corridorSize.isValid()
             && corridorSize.size <= roomSize.maxRoomWidth
             && corridorSize.size <= roomSize.maxRoomHeight;

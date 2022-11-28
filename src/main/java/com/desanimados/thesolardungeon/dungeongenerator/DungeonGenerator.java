@@ -88,39 +88,31 @@ public class DungeonGenerator extends Thread {
 
         for (int x = 0; x < settings.gridSize.width; x++) {
             for (int y = 0; y < settings.gridSize.height; y++) {
-                Position cellCenter;
+                if (roomGrid[x][y] == null) continue;
 
-                if (roomGrid[x][y] == null) {
-                    cellCenter = getCellCenter(x, y);
-                } else {
-                    cellCenter = roomGrid[x][y].rectangle.getCenter();
-                }
-
-                List<Corridor> cellCorridors = new ArrayList<Corridor>();
-
-                // Connect to room above
-                if (y > 0 && roomGrid[x][y - 1] != null) {
-                    cellCorridors.add(new Corridor(cellCenter, roomGrid[x][y - 1].rectangle.getCenter()));
+                // Connect to room at right
+                if (x < settings.gridSize.width - 1 && roomGrid[x + 1][y] != null) {
+                    corridorList.add(roomGrid[x][y].makeRoomTo(roomGrid[x + 1][y]));
                 }
                 // Connect to room below
                 if (y < settings.gridSize.height - 1 && roomGrid[x][y + 1] != null) {
-                    cellCorridors.add(new Corridor(cellCenter, roomGrid[x][y + 1].rectangle.getCenter()));
-                }
-                // Connect to room at left
-                if (x > 0 && roomGrid[x - 1][y] != null) {
-                    cellCorridors.add(new Corridor(cellCenter, roomGrid[x - 1][y].rectangle.getCenter()));
-                }
-                // Connect to room at right
-                if (x < settings.gridSize.width - 1 && roomGrid[x + 1][y] != null) {
-                    cellCorridors.add(new Corridor(cellCenter, roomGrid[x + 1][y].rectangle.getCenter()));
-                }
-
-                if (cellCorridors.size() >= 2) {
-                    corridorList.addAll(cellCorridors);
+                    corridorList.add(roomGrid[x][y].makeRoomTo(roomGrid[x][y + 1]));
                 }
             }
         }
 
         return corridorList;
+    }
+
+    public void clearUnconnectedRooms(Room[][] roomGrid) {
+        for (int x = 0; x < settings.gridSize.width; x++) {
+            for (int y = 0; y < settings.gridSize.height; y++) {
+                if (roomGrid[x][y] == null) continue;
+
+                if (roomGrid[x][y].getConnectionAmount() == 0) {
+                    roomGrid[x][y] = null;
+                }
+            }
+        }
     }
 }

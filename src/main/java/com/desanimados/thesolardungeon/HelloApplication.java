@@ -18,12 +18,13 @@ public class HelloApplication extends Application {
         boolean[][] dungeonGrid = dungeonGenerator.generateDungeonGrid();
         Room[][] roomGrid = dungeonGenerator.generateRooms(dungeonGrid);
         List<Corridor> corridorList = dungeonGenerator.generateCorridors(roomGrid);
+        dungeonGenerator.clearUnconnectedRooms(roomGrid);
 
         for (int x = 0; x < dungeonGenerator.settings.gridSize.width; x++) {
             for (int y = 0; y < dungeonGenerator.settings.gridSize.height; y++) {
                 if (roomGrid[x][y] == null) continue;
 
-                roomGrid[x][y].draw();
+                roomGrid[x][y].draw(dungeonGenerator.settings.roomCornerRadius.radius);
             }
         }
 
