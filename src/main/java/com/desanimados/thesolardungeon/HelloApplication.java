@@ -1,6 +1,7 @@
 package com.desanimados.thesolardungeon;
 
 import com.desanimados.thesolardungeon.dungeongenerator.Corridor;
+import com.desanimados.thesolardungeon.dungeongenerator.Dungeon;
 import com.desanimados.thesolardungeon.dungeongenerator.DungeonGenerator;
 import com.desanimados.thesolardungeon.dungeongenerator.Room;
 import javafx.application.Application;
@@ -14,23 +15,9 @@ public class HelloApplication extends Application {
         Renderer.init(stage);
         Renderer.getInstance().start();
 
-        DungeonGenerator dungeonGenerator = new DungeonGenerator();
-        boolean[][] dungeonGrid = dungeonGenerator.generateDungeonGrid();
-        Room[][] roomGrid = dungeonGenerator.generateRooms(dungeonGrid);
-        List<Corridor> corridorList = dungeonGenerator.generateCorridors(roomGrid);
-        dungeonGenerator.clearUnconnectedRooms(roomGrid);
-
-        for (int x = 0; x < dungeonGenerator.settings.gridSize.width; x++) {
-            for (int y = 0; y < dungeonGenerator.settings.gridSize.height; y++) {
-                if (roomGrid[x][y] == null) continue;
-
-                roomGrid[x][y].draw(dungeonGenerator.settings.roomCornerRadius.radius);
-            }
-        }
-
-        for (Corridor corridor : corridorList) {
-            corridor.draw(dungeonGenerator.settings.corridorSize.size);
-        }
+        Dungeon dungeon = new Dungeon();
+        dungeon.generate();
+        dungeon.draw();
     }
 
     public static void main(String[] args) {

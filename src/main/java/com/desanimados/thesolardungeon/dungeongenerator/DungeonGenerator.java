@@ -9,13 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DungeonGenerator extends Thread {
-    public DungeonGenerationSettings settings = new DungeonGenerationSettings();
+    public DungeonGenerationSettings settings;
 
-    public Position getCellCenter(int cellX, int cellY) {
-        return new Position(
-            cellX * settings.cellSize.width + settings.cellSize.width / 2,
-            cellY * settings.cellSize.height + settings.cellSize.height / 2
-        );
+    public DungeonGenerator(DungeonGenerationSettings settings) {
+        this.settings = settings;
     }
 
     public Rectangle getSafeCellRectangle(int cellX, int cellY) {
