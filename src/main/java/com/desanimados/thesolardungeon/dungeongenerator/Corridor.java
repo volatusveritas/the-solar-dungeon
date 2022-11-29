@@ -11,7 +11,7 @@ public class Corridor {
         this.end = end;
     }
 
-    public void draw(float width) {
-        begin.drawLineTo(end, width);
+    public void draw(float width, Position offset) {
+        begin.drawLineTo(end, width, offset);
     }
 }

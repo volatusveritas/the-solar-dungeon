@@ -6,6 +6,11 @@ public class Position {
     public int x;
     public int y;
 
+    public Position() {
+        x = 0;
+        y = 0;
+    }
+
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
@@ -16,8 +21,11 @@ public class Position {
         y += other.y;
     }
 
-    public void drawLineTo(Position other, float width) {
+    public void drawLineTo(Position other, float width, Position offset) {
         Renderer.getGraphicsContext().setLineWidth(width);
-        Renderer.getInstance().drawLine(x, y, other.x, other.y);
+        Renderer.getInstance().drawLine(
+            x + offset.x, y + offset.y,
+            other.x + offset.x, other.y + offset.y
+        );
     }
 }

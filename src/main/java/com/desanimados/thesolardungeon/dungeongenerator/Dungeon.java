@@ -1,6 +1,8 @@
 package com.desanimados.thesolardungeon.dungeongenerator;
 
+import com.desanimados.thesolardungeon.Renderer;
 import com.desanimados.thesolardungeon.dungeongenerator.settings.DungeonGenerationSettings;
+import com.desanimados.thesolardungeon.util.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +46,18 @@ public class Dungeon {
         }
     }
 
-    public void draw() {
+    public void draw(Position offset) {
         for (Room room : rooms) {
-            room.draw(settings.roomCornerRadius.radius);
+            room.draw(settings.roomCornerRadius.radius, offset);
         }
 
         for (Corridor corridor : corridors) {
-            corridor.draw(settings.corridorSize.size);
+            corridor.draw(settings.corridorSize.size, offset);
         }
+    }
+
+    public void cleanDraw(Position offset) {
+        Renderer.getInstance().clearCanvas();
+        draw(offset);
     }
 }

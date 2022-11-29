@@ -1,5 +1,6 @@
 package com.desanimados.thesolardungeon.dungeongenerator;
 
+import com.desanimados.thesolardungeon.util.Position;
 import com.desanimados.thesolardungeon.util.Rectangle;
 
 public class Room {
@@ -23,7 +24,7 @@ public class Room {
         return new Corridor(rectangle.getCenter(), target.rectangle.getCenter());
     }
 
-    public void draw(int arcSize) {
-        rectangle.draw(arcSize);
+    public void draw(int arcSize, Position offset) {
+        rectangle.draw(arcSize, offset);
     }
 }

@@ -9,10 +9,11 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 public final class Renderer {
-    private static final String FOREGROUND_COLOR = "#70798C";
-    private static final String BACKGROUND_COLOR = "#252323";
+    private static final Color FOREGROUND_COLOR = Color.valueOf("#70798C");
+    private static final Color BACKGROUND_COLOR = Color.valueOf("#252323");
     private static Renderer instance;
-    Stage stage;
+    private Stage stage;
+    private Scene scene;
     GraphicsContext graphicsContext;
 
     public static Renderer getInstance() {
@@ -26,19 +27,32 @@ public final class Renderer {
         instance.stage = stage;
 
         final Group group = new Group();
-        final Scene scene = new Scene(group, 640, 640);
+        instance.scene = new Scene(group, 640, 640);
         final Canvas canvas = new Canvas(640, 640);
 
         instance.graphicsContext = canvas.getGraphicsContext2D();
-        instance.graphicsContext.setFill(Color.valueOf(BACKGROUND_COLOR));
-        instance.graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        instance.graphicsContext.setFill(Color.valueOf(FOREGROUND_COLOR));
-        instance.graphicsContext.setStroke(Color.valueOf(FOREGROUND_COLOR));
+        instance.graphicsContext.setFill(FOREGROUND_COLOR);
+        instance.graphicsContext.setStroke(FOREGROUND_COLOR);
+        instance.clearCanvas();
 
         group.getChildren().add(canvas);
 
         stage.setTitle("The Solar Dungeon");
-        stage.setScene(scene);
+        stage.setScene(instance.scene);
+    }
+
+    public Stage getState() { return stage; }
+
+    public Scene getScene() { return scene; }
+
+    public void clearCanvas() {
+        graphicsContext.setFill(BACKGROUND_COLOR);
+        graphicsContext.fillRect(
+            0, 0,
+            graphicsContext.getCanvas().getWidth(),
+            graphicsContext.getCanvas().getHeight()
+        );
+        graphicsContext.setFill(FOREGROUND_COLOR);
     }
 
     public void drawRoundRect(int x, int y, int width, int height, int arcSize) {

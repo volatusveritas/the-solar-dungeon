@@ -25,7 +25,11 @@ public class Rectangle {
         );
     }
 
-    public void draw(int arcSize) {
-        Renderer.getInstance().drawRoundRect(position.x, position.y, size.width, size.height, arcSize);
+    public void draw(int arcSize, Position offset) {
+        Renderer.getInstance().drawRoundRect(
+            position.x + offset.x, position.y + offset.y,
+            size.width, size.height,
+            arcSize
+        );
     }
 }
