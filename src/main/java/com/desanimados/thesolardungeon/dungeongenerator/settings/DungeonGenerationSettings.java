@@ -2,13 +2,13 @@ package com.desanimados.thesolardungeon.dungeongenerator.settings;
 
 public class DungeonGenerationSettings {
     public GridSize gridSize;
+    public GridLimits gridLimits;
     public CellSize cellSize;
     public CellPadding cellPadding;
-    public GridLimits gridLimits;
     public RoomSize roomSize;
-    public CorridorSize corridorSize;
     public RoomChance roomChance;
     public RoomCornerRadius roomCornerRadius;
+    public CorridorSize corridorSize;
 
     public DungeonGenerationSettings() {
         gridSize = new GridSize();
